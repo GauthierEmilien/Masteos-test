@@ -1,5 +1,9 @@
 {
   "homepage": {
     "startGame": "Start the game !"
+  },
+  "game": {
+    "test": "Test !",
+    "next": "Next exercise !"
   }
 }

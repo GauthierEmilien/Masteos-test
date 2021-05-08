@@ -33,15 +33,15 @@ When you are happy with your submission, either push your code on GitHub _(prefe
 
 Here are a few pointers on how this project could be augmented:
 
-* support for `console.log` / `console.warn`
-* a server-side, secure way to execute the user-submitted code and check against the expected results
-* Docker configuration, to make the app setup and start easier
-* locally stored results, to improve on a previous score and set a new record
-* a leaderboard, stored in a database, showing you your scores against other players
-* set prettier up on commit to normalize the coding style
-* i18n support
-* animations and UX
-* support for TypeScript on the submitted solutions
-* gamification, e.g. unlockable tips or virtual rewards
+* [ ] support for `console.log` / `console.warn`
+* [ ] a server-side, secure way to execute the user-submitted code and check against the expected results
+* [x] Docker configuration, to make the app setup and start easier
+* [ ] locally stored results, to improve on a previous score and set a new record
+* [ ] a leaderboard, stored in a database, showing you your scores against other players
+* [ ] set prettier up on commit to normalize the coding style
+* [x] i18n support
+* [ ] animations and UX
+* [x] support for TypeScript on the submitted solutions
+* [ ] gamification, e.g. unlockable tips or virtual rewards
 
 Note that **these features are not required** for the completion of the test.

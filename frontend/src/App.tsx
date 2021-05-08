@@ -1,15 +1,18 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import HomePage from "./components/HomePage";
+import React, { useState } from "react";
+import Game from "./components/Game/Game";
+import HomePage from "./components/HomePage/HomePage";
+import { GameStatus } from "./interfaces/game";
 
 function App() {
+  const [gameStatus, setGameStatus] = useState(GameStatus.HOME);
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/game">game</Route>
-      </Switch>
-    </Router>
+    <>
+      {gameStatus === GameStatus.HOME ? (
+        <HomePage onStart={() => setGameStatus(GameStatus.INGAME)} />
+      ) : (
+        <Game />
+      )}
+    </>
   );
 }
 
