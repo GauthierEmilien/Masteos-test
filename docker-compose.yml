@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  backend:
+    image: node:lts
+    volumes:
+      - ./backend:/backend
+    working_dir: /backend
+    ports:
+      - "4000:4000"
+    command: yarn start:dev
+    environment:
+      NODE_ENV: development
+  frontend:
+    image: node:lts
+    volumes:
+      - ./frontend:/frontend
+    working_dir: /frontend
+    ports:
+      - "3000:3000"
+    command: yarn start
+    environment:
+      NODE_ENV: development
