@@ -10,6 +10,12 @@ services:
     command: yarn start:dev
     environment:
       NODE_ENV: development
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/healthcheck"]
+      interval: 1ms
+      timeout: 5s
+      retries: 3
+      start_period: 20s
   frontend:
     image: node:lts
     volumes:
