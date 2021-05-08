@@ -2,9 +2,22 @@ import * as fs from "fs";
 import * as path from "path";
 import * as util from "util";
 
-export default async function () {
-  const baseCodeFolder = path.resolve(__dirname, "base_code") + "/";
-  const solutionFolder = path.resolve(__dirname, "solution") + "/";
+export interface ExerciseTest {
+  call: string;
+  result: any;
+}
+
+export interface Exercise {
+  name: string;
+  description?: string;
+  baseCode: string;
+  solution: string;
+  tests: ExerciseTest[];
+}
+
+export async function exercisesSet(): Promise<Exercise[]> {
+  const baseCodeFolder = path.resolve(__dirname, "../../exercises/baseCode") + "/";
+  const solutionFolder = path.resolve(__dirname, "../../exercises/solution") + "/";
   const readFile = util.promisify(fs.readFile);
 
   return [
@@ -15,7 +28,7 @@ export default async function () {
       baseCode: (await readFile(baseCodeFolder + "test1.js")).toString(),
       solution: (await readFile(solutionFolder + "test1.js")).toString(),
       tests: [
-        { call: "doubleInteger(2)", result: 2 },
+        { call: "doubleInteger(2)", result: 4 }, // it was 2 before correction
         { call: "doubleInteger(4)", result: 8 },
         { call: "doubleInteger(-10)", result: -20 },
         { call: "doubleInteger(0)", result: 0 },
