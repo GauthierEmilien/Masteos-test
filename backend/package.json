@@ -5,6 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "start:dev": "nodemon",
+    "lint": "eslint --fix && prettier --write --ignore-unknown .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

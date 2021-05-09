@@ -1,8 +1,6 @@
 {
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+  "scripts": {
+    "prepare": "husky install"
   },
   "devDependencies": {
     "husky": "^6.0.0",

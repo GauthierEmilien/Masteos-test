@@ -1,1 +1,1 @@
-declare module "react-rainbowfy";
+declare module 'react-rainbowfy';

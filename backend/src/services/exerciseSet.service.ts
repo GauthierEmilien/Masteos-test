@@ -16,8 +16,14 @@ export interface Exercise {
 }
 
 export async function exercisesSet(): Promise<Exercise[]> {
-  const baseCodeFolder = `${path.resolve(__dirname, '../../exercises/baseCode')}/`;
-  const solutionFolder = `${path.resolve(__dirname, '../../exercises/solution')}/`;
+  const baseCodeFolder = `${path.resolve(
+    __dirname,
+    '../../exercises/baseCode',
+  )}/`;
+  const solutionFolder = `${path.resolve(
+    __dirname,
+    '../../exercises/solution',
+  )}/`;
   const readFile = util.promisify(fs.readFile);
 
   return [
@@ -39,7 +45,8 @@ export async function exercisesSet(): Promise<Exercise[]> {
     // Exercise 2: Is number even
     {
       name: 'Is number even',
-      description: 'Return true or false depending on whether the number is even.',
+      description:
+        'Return true or false depending on whether the number is even.',
       baseCode: (await readFile(`${baseCodeFolder}test2.js`)).toString(),
       solution: (await readFile(`${solutionFolder}test2.js`)).toString(),
       tests: [
@@ -98,7 +105,8 @@ export async function exercisesSet(): Promise<Exercise[]> {
     // Exercise 5: Array sum
     {
       name: 'Array sum',
-      description: 'Sum all the integers in a nested array, no matter how many levels deep.',
+      description:
+        'Sum all the integers in a nested array, no matter how many levels deep.',
       baseCode: (await readFile(`${baseCodeFolder}test5.js`)).toString(),
       solution: (await readFile(`${solutionFolder}test5.js`)).toString(),
       tests: [

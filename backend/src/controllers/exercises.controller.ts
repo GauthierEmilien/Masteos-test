@@ -1,6 +1,10 @@
 import express from 'express';
 import { exercisesSet } from '../services/exerciseSet.service';
-import { compileCode, createFileFromCode, testCode } from '../services/testExercise.service';
+import {
+  compileCode,
+  createFileFromCode,
+  testCode,
+} from '../services/testExercise.service';
 
 const router = express.Router();
 
