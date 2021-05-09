@@ -15,9 +15,17 @@
   },
   "dialog": {
     "title": "Congrats !!",
-    "content": "You've made it in {{time}}. Good Job !"
+    "content": "You've made it in {{time}}. Good Job !",
+    "register": "Let's register it !",
+    "username": "Enter a nickname",
+    "close": "close"
   },
   "clock": {
     "finish": "Finish !"
+  },
+  "leaderboard": {
+    "rank": "Rank",
+    "nickname": "Nickname",
+    "time": "Time"
   }
 }

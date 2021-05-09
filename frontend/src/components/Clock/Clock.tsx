@@ -6,8 +6,9 @@ import "./Clock.scss";
 export function Clock({ time, isCounting }: ClockProps) {
   const { t } = useTranslation("common");
   return (
-    <div className="clock">{`${
-      !isCounting ? t("clock.finish") + " " : ""
-    }${toTime(Math.floor(time / 60))}:${toTime(time % 60)}`}</div>
+    <div className="clock">
+      {`${!isCounting ? t("clock.finish") + " " : ""}
+      ${toTime(Math.floor(time / 60))}:${toTime(time % 60)}`}
+    </div>
   );
 }

@@ -106,9 +106,11 @@ export default function Game(props: GameProps) {
     setLoading(false);
   };
 
-  const onDialogClose = () => {
+  const onDialogClose = async (nickname: string) => {
     setGameStatus(GameStatus.HOME);
     setGameStep(0);
+    setDialogIsOpen(false);
+    axios.post(httpUrls.leaderboard, { nickname, time });
   };
 
   return (
@@ -143,12 +145,7 @@ export default function Game(props: GameProps) {
           </Grid>
         </Grid>
       </div>
-      <WinDialog
-        open={dialogIsOpen}
-        setOpen={setDialogIsOpen}
-        time={time}
-        onClose={onDialogClose}
-      />
+      <WinDialog open={dialogIsOpen} time={time} onClose={onDialogClose} />
     </>
   );
 }

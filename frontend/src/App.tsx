@@ -26,7 +26,7 @@ function App() {
         <HomePage onStart={() => setGameStatus(GameStatus.INGAME)} />
       ) : (
         <Fade in={gameStatus === GameStatus.INGAME}>
-          <Game exercises={exercises} setGameStatus={setGameStatus} />
+          <Game exercises={[exercises[0]]} setGameStatus={setGameStatus} />
         </Fade>
       )}
     </>

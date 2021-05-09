@@ -4,4 +4,5 @@ export const httpUrls = {
   getExercices: `${host}/exercises`,
   compileExercise: `${host}/exercises/compile`,
   testExercise: `${host}/exercises/test`,
+  leaderboard: `${host}/leaderboard`,
 };

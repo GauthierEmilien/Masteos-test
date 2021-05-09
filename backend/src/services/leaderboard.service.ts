@@ -9,7 +9,7 @@ export class LeaderboardService {
   }
 
   async getLeaderboards(): Promise<Leaderboard[]> {
-    const res = this.db.find();
+    const res = this.db.find().sort({ time: 1 });
     console.log(await res.toArray());
     return res.toArray();
   }
