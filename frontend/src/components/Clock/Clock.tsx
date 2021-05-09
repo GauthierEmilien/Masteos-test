@@ -1,26 +1,13 @@
-import moment from "moment";
-import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { ClockProps } from "../../interfaces/clock";
+import { toTime } from "../../utils/time.utils";
 import "./Clock.scss";
 
-export function Clock() {
-  const [startTime, setStartTime] = useState(moment());
-  const [time, setTime] = useState(0);
-
-  const toTime = new Intl.NumberFormat("fr-FR", {
-    minimumIntegerDigits: 2,
-    maximumFractionDigits: 0,
-  }).format;
-
-  useEffect(() => {
-    const tick = () => {
-      const t = moment();
-      setTime(t.diff(startTime, "seconds"));
-    };
-    const timer = setInterval(tick, 1000);
-    return () => clearInterval(timer);
-  }, [startTime]);
-
+export function Clock({ time, isCounting }: ClockProps) {
+  const { t } = useTranslation("common");
   return (
-    <div className="clock">{`${toTime(time / 60)}:${toTime(time % 60)}`}</div>
+    <div className="clock">{`${
+      !isCounting ? t("clock.finish") + " " : ""
+    }${toTime(Math.floor(time / 60))}:${toTime(time % 60)}`}</div>
   );
 }

@@ -1,31 +1,60 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, CircularProgress, Grid } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Ide } from "../Ide/Ide";
 import { Logs } from "../Logs/Logs";
 import { Clock } from "../Clock/Clock";
-import { Exercise, GameProps, Log, LogStatus } from "../../interfaces";
+import {
+  Exercise,
+  GameProps,
+  GameStatus,
+  Log,
+  LogStatus,
+} from "../../interfaces";
 import "./Game.scss";
 import { httpUrls } from "../../constants";
+import { WinDialog } from "../WinDialog/WinDialog";
+import moment from "moment";
 
 export default function Game(props: GameProps) {
+  const { exercises, setGameStatus } = props;
+
   const { t } = useTranslation("common");
   const [code, setCode] = useState("");
   const [exercise, setExercise] = useState<Exercise>();
   const [gameStep, setGameStep] = useState(0);
   const [stepIsValid, setStepIsValid] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [startTime] = useState(moment());
+  const [time, setTime] = useState(0);
+  const isCounting = !stepIsValid || gameStep !== exercises.length - 1;
 
   const handleIdeChange = (e: any) => setCode(e.target.value);
 
+  // Update exercise/baseCode/logs according to gameStep
   useEffect(() => {
-    const ex = props.exercises[gameStep];
+    const ex = exercises[gameStep];
     setExercise(ex);
     setCode(ex.baseCode);
     setLogs(ex.description ? [{ message: ex.description }] : []);
-  }, [gameStep, props.exercises]);
+  }, [gameStep, exercises]);
 
+  // Timer
+  useEffect(() => {
+    const tick = () => {
+      const t = moment();
+      setTime(t.diff(startTime, "seconds"));
+    };
+    if (isCounting) {
+      const timer = setInterval(tick, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [startTime, isCounting]);
+
+  // Http calls to execute all tests from exercise
   const callAllTests = async () => {
     const newLogs = logs.slice();
     let validStep = 0;
@@ -57,45 +86,69 @@ export default function Game(props: GameProps) {
     setLogs(newLogs);
   };
 
+  // Compile and test first, then go to next exercise, finally open win dialog at the end
   const handleClick = async () => {
-    if (stepIsValid && gameStep < props.exercises.length) {
+    if (stepIsValid && gameStep !== exercises.length - 1) {
       setGameStep(gameStep + 1);
       setStepIsValid(false);
       return;
+    } else if (stepIsValid && gameStep === exercises.length - 1) {
+      setDialogIsOpen(true);
+      return;
     }
+    setLoading(true);
     const { data } = await axios.post(httpUrls.compileExercise, { code });
     if (!data.tscError) {
       await callAllTests();
     } else {
       setLogs(logs.concat({ message: data.tscError, status: LogStatus.ERROR }));
     }
+    setLoading(false);
+  };
+
+  const onDialogClose = () => {
+    setGameStatus(GameStatus.HOME);
+    setGameStep(0);
   };
 
   return (
-    <div {...props} className="game-container">
-      <Grid container spacing={1}>
-        <Grid item xs={8}>
-          <div className="title">{t("game.title")}</div>
+    <>
+      <div style={(props as any).style} className="game-container">
+        <Grid container spacing={1}>
+          <Grid item xs={8}>
+            <div className="title">{t("game.title")}</div>
+          </Grid>
+          <Grid item xs={4} className="clock-container">
+            <Clock time={time} isCounting={isCounting} />
+          </Grid>
+          <Grid item xs={12}>
+            <Ide code={code} onChange={handleIdeChange} />
+          </Grid>
+          <Grid className="user-interactions" item xs={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleClick()}
+              disabled={loading}
+            >
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                t(stepIsValid ? "game.next" : "game.test")
+              )}
+            </Button>
+          </Grid>
+          <Grid className="user-interactions" item xs={10}>
+            <Logs logs={logs} />
+          </Grid>
         </Grid>
-        <Grid item xs={4} className="clock-container">
-          <Clock />
-        </Grid>
-        <Grid item xs={12}>
-          <Ide code={code} onChange={handleIdeChange} />
-        </Grid>
-        <Grid className="user-interactions" item xs={2}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleClick()}
-          >
-            {t(stepIsValid ? "game.next" : "game.test")}
-          </Button>
-        </Grid>
-        <Grid className="user-interactions" item xs={10}>
-          <Logs logs={logs} />
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+      <WinDialog
+        open={dialogIsOpen}
+        setOpen={setDialogIsOpen}
+        time={time}
+        onClose={onDialogClose}
+      />
+    </>
   );
 }

@@ -11,6 +11,7 @@ function App() {
   const [gameStatus, setGameStatus] = useState(GameStatus.HOME);
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
+  // Get all exercises at start
   useEffect(() => {
     axios.get<Exercise[]>(`${httpUrls.getExercices}`).then((res) => {
       if (res.status === 200) {
@@ -25,7 +26,7 @@ function App() {
         <HomePage onStart={() => setGameStatus(GameStatus.INGAME)} />
       ) : (
         <Fade in={gameStatus === GameStatus.INGAME}>
-          <Game exercises={exercises} />
+          <Game exercises={exercises} setGameStatus={setGameStatus} />
         </Fade>
       )}
     </>

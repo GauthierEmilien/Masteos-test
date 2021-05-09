@@ -36,6 +36,7 @@ export function Ide({ code, onChange }: IdeProps) {
     <div className="ide">
       <TextField
         // inputRef={textfield}
+        spellCheck={false}
         multiline
         rows={25}
         variant="outlined"

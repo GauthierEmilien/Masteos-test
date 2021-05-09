@@ -7,4 +7,5 @@ export enum GameStatus {
 
 export interface GameProps {
   exercises: Exercise[];
+  setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>;
 }

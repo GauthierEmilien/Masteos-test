@@ -12,5 +12,12 @@
     "goodAnswer": "RIGHT: {{result}} is the right answer !",
     "wrongAnswer": "WRONG: {{error}}",
     "success": "Success !!"
+  },
+  "dialog": {
+    "title": "Congrats !!",
+    "content": "You've made it in {{time}}. Good Job !"
+  },
+  "clock": {
+    "finish": "Finish !"
   }
 }
