@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   backend:
+    container_name: backend
     image: node:lts
     volumes:
       - ./backend:/backend
@@ -16,7 +17,10 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s
+    depends_on: 
+      - mongodb
   frontend:
+    container_name: frontend
     image: node:lts
     volumes:
       - ./frontend:/frontend
@@ -26,9 +30,12 @@ services:
     command: yarn start
     environment:
       NODE_ENV: development
+    depends_on: 
+      - backend
   mongodb:
-    image : mongo
+    container_name: mongodb
+    image: mongo
     volumes:
-    - ./.mongodb/db:/data/db
+      - ./.mongodb/db:/data/db
     ports:
-    - 27017:27017
+      - 27017:27017
