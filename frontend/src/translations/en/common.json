@@ -3,7 +3,14 @@
     "startGame": "Start the game !"
   },
   "game": {
+    "title": "You can't Typescript under pressure",
     "test": "Test !",
     "next": "Next exercise !"
+  },
+  "logs": {
+    "testing": "Testing {{call}}...",
+    "goodAnswer": "RIGHT: {{result}} is the right answer !",
+    "wrongAnswer": "WRONG: {{error}}",
+    "success": "Success !!"
   }
 }

@@ -5,11 +5,11 @@ import { useTranslation } from "react-i18next";
 import { Ide } from "../Ide/Ide";
 import { Logs } from "../Logs/Logs";
 import { Clock } from "../Clock/Clock";
-import { Exercise } from "../../interfaces/exercise";
-import { Log, LogStatus } from "../../interfaces/logs";
+import { Exercise, GameProps, Log, LogStatus } from "../../interfaces";
 import "./Game.scss";
+import { httpUrls } from "../../constants";
 
-export default function Game(props: any) {
+export default function Game(props: GameProps) {
   const { t } = useTranslation("common");
   const [code, setCode] = useState("");
   const [exercise, setExercise] = useState<Exercise>();
@@ -20,60 +20,50 @@ export default function Game(props: any) {
   const handleIdeChange = (e: any) => setCode(e.target.value);
 
   useEffect(() => {
-    axios
-      .get<Exercise>(`http://localhost:4000/exercises/${gameStep}`)
-      .then((res) => {
-        if (res.status === 200) {
-          setExercise(res.data);
-          setCode(res.data.baseCode);
-          setLogs(
-            res.data.description ? [{ message: res.data.description }] : []
-          );
-        }
-      });
-  }, [gameStep]);
+    const ex = props.exercises[gameStep];
+    setExercise(ex);
+    setCode(ex.baseCode);
+    setLogs(ex.description ? [{ message: ex.description }] : []);
+  }, [gameStep, props.exercises]);
 
   const callAllTests = async () => {
     const newLogs = logs.slice();
     let validStep = 0;
     for (const test of exercise!.tests) {
       const { data } = await axios.post<{ isValid: boolean; error?: string }>(
-        "http://localhost:4000/exercises/test",
+        httpUrls.testExercise,
         { test }
       );
-      newLogs.push({ message: `Testing ${test.call}...` });
+      newLogs.push({ message: t("logs.testing", { call: test.call }) });
 
-      console.log("logs", logs);
       if (data.isValid) {
         newLogs.push({
-          message: `RIGHT: ${test.result} is the right answer !`,
+          message: t("logs.goodAnswer", { result: test.result }),
           status: LogStatus.SUCCESS,
         });
         validStep += 1;
       } else {
         newLogs.push({
-          message: `WRONG: ${data.error}`,
+          message: t("logs.wrongAnswer", { error: data.error }),
           status: LogStatus.ERROR,
         });
         break;
       }
     }
     if (validStep === exercise!.tests.length) {
-      newLogs.push({ message: `Success !!`, status: LogStatus.SUCCESS });
+      newLogs.push({ message: t("logs.success"), status: LogStatus.SUCCESS });
       setStepIsValid(true);
     }
     setLogs(newLogs);
   };
 
   const handleClick = async () => {
-    if (stepIsValid) {
+    if (stepIsValid && gameStep < props.exercises.length) {
       setGameStep(gameStep + 1);
+      setStepIsValid(false);
       return;
     }
-    const { data } = await axios.post(
-      "http://localhost:4000/exercises/compile",
-      { code }
-    );
+    const { data } = await axios.post(httpUrls.compileExercise, { code });
     if (!data.tscError) {
       await callAllTests();
     } else {
@@ -85,7 +75,7 @@ export default function Game(props: any) {
     <div {...props} className="game-container">
       <Grid container spacing={1}>
         <Grid item xs={8}>
-          <div className="title">You can't Typescript under pressure</div>
+          <div className="title">{t("game.title")}</div>
         </Grid>
         <Grid item xs={4} className="clock-container">
           <Clock />
@@ -93,7 +83,7 @@ export default function Game(props: any) {
         <Grid item xs={12}>
           <Ide code={code} onChange={handleIdeChange} />
         </Grid>
-        <Grid item xs={2}>
+        <Grid className="user-interactions" item xs={2}>
           <Button
             variant="contained"
             color="primary"
@@ -102,7 +92,7 @@ export default function Game(props: any) {
             {t(stepIsValid ? "game.next" : "game.test")}
           </Button>
         </Grid>
-        <Grid item xs={10}>
+        <Grid className="user-interactions" item xs={10}>
           <Logs logs={logs} />
         </Grid>
       </Grid>
