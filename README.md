@@ -42,3 +42,7 @@ Here is what you have to do if you want to install and start coding on this proj
 - Go back again to the root location and run `docker-compose up`.
 - Project will rebuild itself when you modify files.
 - Navigate to [`http://localhost:3000`](http://localhost:3000) to see the frontend result.
+
+---
+
+Instructions: [./instructions.md](./instructions.md)
