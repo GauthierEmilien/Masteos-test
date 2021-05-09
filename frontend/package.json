@@ -36,8 +36,8 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^6.0.0",
-    "prettier": "^2.2.1",
-    "pretty-quick": "^3.1.0"
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,8 +47,16 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "**/*.ts": [
+      "eslint --fix"
+    ],
+    "**/*.tsx": [
+      "eslint --fix"
+    ]
   },
   "eslintConfig": {
     "extends": [
