@@ -16,6 +16,7 @@ import "./Game.scss";
 import { httpUrls } from "../../constants";
 import { WinDialog } from "../WinDialog/WinDialog";
 import moment from "moment";
+import Rainbowfy from "react-rainbowfy";
 
 export default function Game(props: GameProps) {
   const { exercises, setGameStatus } = props;
@@ -118,7 +119,16 @@ export default function Game(props: GameProps) {
       <div style={(props as any).style} className="game-container">
         <Grid container spacing={1}>
           <Grid item xs={8}>
-            <div className="title">{t("game.title")}</div>
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+              rel="noreferrer"
+              className="title"
+            >
+              <Rainbowfy fontSize="30px" fontWeight="800">
+                {t("game.title")}
+              </Rainbowfy>
+            </a>
           </Grid>
           <Grid item xs={4} className="clock-container">
             <Clock time={time} isCounting={isCounting} />

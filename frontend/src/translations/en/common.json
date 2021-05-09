@@ -4,8 +4,8 @@
   },
   "game": {
     "title": "You can't Typescript under pressure",
-    "test": "Test !",
-    "next": "Next exercise !"
+    "test": "Test",
+    "next": "Next exercise"
   },
   "logs": {
     "testing": "Testing {{call}}...",
@@ -26,6 +26,7 @@
   "leaderboard": {
     "rank": "Rank",
     "nickname": "Nickname",
-    "time": "Time"
+    "time": "Time",
+    "noScore": "No score yet."
   }
 }

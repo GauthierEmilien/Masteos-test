@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { httpUrls } from "../../constants";
 import { Leaderboard } from "../../interfaces";
 import { toTime } from "../../utils/time.utils";
+import "./LeaderboardTable.scss";
 
 export function LeaderboardTable() {
   const { t } = useTranslation("common");
@@ -27,16 +28,25 @@ export function LeaderboardTable() {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className="leaderboard">
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>{t("leaderboard.rank")}</TableCell>
-            <TableCell>{t("leaderboard.nickname")}</TableCell>
-            <TableCell>{t("leaderboard.time")}</TableCell>
+            <TableCell style={{ fontWeight: 600 }}>
+              {t("leaderboard.rank")}
+            </TableCell>
+            <TableCell style={{ fontWeight: 600 }}>
+              {t("leaderboard.nickname")}
+            </TableCell>
+            <TableCell style={{ fontWeight: 600 }}>
+              {t("leaderboard.time")}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
+          {!leaderboards.length && (
+            <div className="no-score">{t("leaderboard.noScore")}</div>
+          )}
           {leaderboards.map((leaderboard, index) => (
             <TableRow>
               <TableCell>{`#${index + 1}`}</TableCell>
