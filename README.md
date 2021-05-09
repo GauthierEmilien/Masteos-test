@@ -1,47 +1,44 @@
-# Technical test @Masteos
+# You can't Typescript under pressure
 
-The goal of this technical test is to rewrite **You Can't JavaScript Under Pressure**, currently on life support on [Way Back Machine](https://web.archive.org/web/20160407233622/http://games.usvsth3m.com/javascript-under-pressure/).
-The exercise set is included with this set.
+Et voilà ! Here is my attempt to recode the famous "You can't javascript under pressure !
 
-The project **must include**:
-* a **web app** allowing for taking the test and submitting solutions
-* a **server** that sends the exercises to the web app
+## Installation 🏗
 
-Here is a full use case, end-to-end potential scenario:
-* the user accesses the website and is greeted with a big "Start" button to start the test
-* when the user clicks on the button, a visible timer starts and the first exercise appears, with a code editor containing the base code of the exercise and a console box
-* when the user submits their solution to the exercise, the console should display each unit test, in sequence, and if the solution complies with the expected result or not
-  * when a single test fails, the console should stop displaying the next unit test, until the user re-submits their solution
-* upon completion of the test set, a button to move on to the next test should appear
-* upon completion of the whole exercise set, the timer should stop, and the web app should display the time it took for the user to finish the exercises, and a "retry" button
+First, make sure **Docker** is installed on your machine.
 
-This scenario can be adapted to your liking, but must at least have the timer and the ability to code and test against the test set.
-You can make any change to the included exercise set you see fit, as long as it still tests the ability to write JavaScript :)
+Then just clone this project, move to its location and run `docker-compose -f ./docker-compose.prod.yml up` (it could take a few minutes).
 
-The web app **must comply** to the following rules:
-* written in TypeScript _(preferred)_ or plain JavaScript
-* uses React _(preferred)_, Angular or Vue
+Now, navigate to [`http://localhost:8080`](http://localhost:8080) and have fun 🎉 !
 
-The server **must comply** to the following rules:
-* written in TypeScript _(preferred)_ or plain JavaScript
-* has a healthcheck route and a route to list the exercises
+## Backend 🏭
 
-This technical test should take no more than 4 hours to complete, but you are free to show your skills beyond the scope of the test! The more, the merrier :)
-When you are happy with your submission, either push your code on GitHub _(preferred)_, or send it via e-mail to guillaume.delahodde@masteos.com.
+- Coded with **NodeJS** and **Typescript**.
+- Added **Prettier** and **Eslint**.
+- Can test it with `yarn test`.
+- Used **MongoDB** for database.
 
-## Bonus ideas
+## Frontend 🌄
 
-Here are a few pointers on how this project could be augmented:
+- Coded with **React** and **Typescript**.
+- Added **Prettier** and **Eslint**.
+- Styled with **Material-ui**.
 
-* [ ] support for `console.log` / `console.warn`
-* [ ] a server-side, secure way to execute the user-submitted code and check against the expected results
-* [x] Docker configuration, to make the app setup and start easier
-* [ ] locally stored results, to improve on a previous score and set a new record
-* [x] a leaderboard, stored in a database, showing you your scores against other players
-* [ ] set prettier up on commit to normalize the coding style
-* [x] i18n support
-* [ ] animations and UX
-* [x] support for TypeScript on the submitted solutions
-* [ ] gamification, e.g. unlockable tips or virtual rewards
+## What I've done 🎵
 
-Note that **these features are not required** for the completion of the test.
+- [x] Docker configuration, to make the app setup and start easier
+- [x] a leaderboard, stored in a database, showing you your scores against other players
+- [x] set prettier up on commit to normalize the coding style
+- [x] i18n support
+- [x] animations and UX
+- [x] support for TypeScript on the submitted solutions
+- [x] add some unit/end-to-end tests
+
+## For developers 💻
+
+Here is what you have to do if you want to install and start coding on this projet :
+
+- Move to `./backend` and run `yarn install`.
+- Go back to the root location and move to `./frontend` then run again `yarn install`.
+- Go back again to the root location and run `docker-compose up`.
+- Project will rebuild itself when you modify files.
+- Navigate to [`http://localhost:3000`](http://localhost:3000) to see the frontend result.

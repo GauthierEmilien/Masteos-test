@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start:dev": "nodemon",
+    "build": "tsc -p .",
     "lint": "eslint --fix && prettier --write --ignore-unknown .",
     "test": "jest"
   },
