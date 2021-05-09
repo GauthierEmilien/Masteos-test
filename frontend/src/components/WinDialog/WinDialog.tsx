@@ -7,13 +7,13 @@ import {
   Grid,
   TextField,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toTime } from '../../utils/time.utils';
+import toTime from '../../utils/time.utils';
 import './WinDialog.scss';
 import gatsby from '../../gifs/gatsby.gif';
 
-export function WinDialog({ open, time, onClose }: any) {
+export default function WinDialog({ open, time, onClose }: any) {
   const { t } = useTranslation('common');
   const [nickname, setNickname] = useState('');
 

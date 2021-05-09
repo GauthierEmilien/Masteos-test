@@ -1,12 +1,12 @@
 import { Button, CircularProgress, Grid } from '@material-ui/core';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import Rainbowfy from 'react-rainbowfy';
-import { Ide } from '../Ide/Ide';
-import { Logs } from '../Logs/Logs';
-import { Clock } from '../Clock/Clock';
+import Ide from '../Ide/Ide';
+import Logs from '../Logs/Logs';
+import Clock from '../Clock/Clock';
 import {
   Exercise,
   GameProps,
@@ -15,8 +15,8 @@ import {
   LogStatus,
 } from '../../interfaces';
 import './Game.scss';
-import { httpUrls } from '../../constants';
-import { WinDialog } from '../WinDialog/WinDialog';
+import httpUrls from '../../constants';
+import WinDialog from '../WinDialog/WinDialog';
 
 export default function Game(props: GameProps) {
   const { exercises, setGameStatus } = props;
@@ -46,8 +46,8 @@ export default function Game(props: GameProps) {
   // Timer
   useEffect(() => {
     const tick = () => {
-      const t = moment();
-      setTime(t.diff(startTime, 'seconds'));
+      const now = moment();
+      setTime(now.diff(startTime, 'seconds'));
     };
     if (isCounting) {
       const timer = setInterval(tick, 1000);

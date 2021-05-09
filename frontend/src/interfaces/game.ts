@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { Exercise } from './exercise';
 
 export enum GameStatus {
@@ -7,5 +8,5 @@ export enum GameStatus {
 
 export interface GameProps {
   exercises: Exercise[];
-  setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>;
+  setGameStatus: Dispatch<SetStateAction<GameStatus>>;
 }

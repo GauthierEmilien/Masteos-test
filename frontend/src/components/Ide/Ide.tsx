@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextField } from '@material-ui/core';
 import './Ide.scss';
 
@@ -7,7 +6,7 @@ interface IdeProps {
   onChange: (e: any) => void;
 }
 
-export function Ide({ code, onChange }: IdeProps) {
+export default function Ide({ code, onChange }: IdeProps) {
   // const [caretPos, setCaretPos] = useState(0);
   // const textfield = useRef<any>();
 

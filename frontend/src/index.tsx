@@ -1,15 +1,14 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
 import i18next from 'i18next';
 import { I18nextProvider } from 'react-i18next';
-import common_en from './translations/en/common.json';
+import App from './App';
+import commonEn from './translations/en/common.json';
 
 i18next.init({
   interpolation: { escapeValue: false },
   lng: 'en',
-  resources: { en: { common: common_en } },
+  resources: { en: { common: commonEn } },
 });
 
 ReactDOM.render(

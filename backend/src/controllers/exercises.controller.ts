@@ -8,7 +8,7 @@ import {
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (_, res) => {
   const result = await exercisesSet();
   res.send(result);
 });

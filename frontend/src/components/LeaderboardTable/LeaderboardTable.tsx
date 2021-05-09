@@ -8,14 +8,14 @@ import {
   TableRow,
 } from '@material-ui/core';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { httpUrls } from '../../constants';
+import httpUrls from '../../constants';
 import { Leaderboard } from '../../interfaces';
-import { toTime } from '../../utils/time.utils';
+import toTime from '../../utils/time.utils';
 import './LeaderboardTable.scss';
 
-export function LeaderboardTable() {
+export default function LeaderboardTable() {
   const { t } = useTranslation('common');
   const [leaderboards, setLeaderboards] = useState<Leaderboard[]>([]);
 
