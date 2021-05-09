@@ -29,6 +29,6 @@ services:
   mongodb:
     image : mongo
     volumes:
-    - ./.mongdb/db:/data/db
+    - ./.mongodb/db:/data/db
     ports:
     - 27017:27017
