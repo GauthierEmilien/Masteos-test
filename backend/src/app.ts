@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import express from 'express';
 import cors from 'cors';
 import exercisesController from './controllers/exercises.controller';
@@ -14,12 +15,8 @@ app.use('/healthcheck', healthcheckController);
 app.use('/leaderboard', leaderboardController);
 
 export async function bootstrap() {
-  try {
-    await mongo.connect();
-    console.log('Successfully connected to MongoDB');
+  await mongo.connect();
+  console.log('Successfully connected to MongoDB');
 
-    app.listen(4000, () => console.log('Server is now running on port 4000'));
-  } catch (error) {
-    throw error;
-  }
+  app.listen(4000, () => console.log('Server is now running on port 4000'));
 }

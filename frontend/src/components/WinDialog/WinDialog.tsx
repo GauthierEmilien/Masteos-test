@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import toTime from '../../utils/time.utils';
 import './WinDialog.scss';
-import gatsby from '../../gifs/gatsby.gif';
+import gatsby from '../../assets/gatsby.gif';
 
 export default function WinDialog({ open, time, onClose }: any) {
   const { t } = useTranslation('common');
