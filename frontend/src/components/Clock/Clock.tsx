@@ -21,8 +21,6 @@ export function Clock() {
   }, [startTime]);
 
   return (
-    <div className="clock">
-      clock: {`${toTime(time / 60)}:${toTime(time % 60)}`} seconds
-    </div>
+    <div className="clock">{`${toTime(time / 60)}:${toTime(time % 60)}`}</div>
   );
 }

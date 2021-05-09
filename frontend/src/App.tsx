@@ -1,3 +1,4 @@
+import { Fade } from "@material-ui/core";
 import React, { useState } from "react";
 import Game from "./components/Game/Game";
 import HomePage from "./components/HomePage/HomePage";
@@ -10,7 +11,9 @@ function App() {
       {gameStatus === GameStatus.HOME ? (
         <HomePage onStart={() => setGameStatus(GameStatus.INGAME)} />
       ) : (
-        <Game />
+        <Fade in={gameStatus === GameStatus.INGAME}>
+          <Game />
+        </Fade>
       )}
     </>
   );

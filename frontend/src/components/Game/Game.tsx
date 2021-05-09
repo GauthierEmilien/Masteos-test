@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ import { Exercise } from "../../interfaces/exercise";
 import { Log, LogStatus } from "../../interfaces/logs";
 import "./Game.scss";
 
-export default function Game() {
+export default function Game(props: any) {
   const { t } = useTranslation("common");
   const [code, setCode] = useState("");
   const [exercise, setExercise] = useState<Exercise>();
@@ -82,13 +82,30 @@ export default function Game() {
   };
 
   return (
-    <div className="game-container">
-      <Clock />
-      <Ide code={code} onChange={handleIdeChange} />
-      <Button variant="contained" color="primary" onClick={() => handleClick()}>
-        {t(stepIsValid ? "game.next" : "game.test")}
-      </Button>
-      <Logs logs={logs} />
+    <div {...props} className="game-container">
+      <Grid container spacing={1}>
+        <Grid item xs={8}>
+          <div className="title">You can't Typescript under pressure</div>
+        </Grid>
+        <Grid item xs={4} className="clock-container">
+          <Clock />
+        </Grid>
+        <Grid item xs={12}>
+          <Ide code={code} onChange={handleIdeChange} />
+        </Grid>
+        <Grid item xs={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleClick()}
+          >
+            {t(stepIsValid ? "game.next" : "game.test")}
+          </Button>
+        </Grid>
+        <Grid item xs={10}>
+          <Logs logs={logs} />
+        </Grid>
+      </Grid>
     </div>
   );
 }
