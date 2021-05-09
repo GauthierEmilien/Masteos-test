@@ -37,7 +37,7 @@ Here are a few pointers on how this project could be augmented:
 * [ ] a server-side, secure way to execute the user-submitted code and check against the expected results
 * [x] Docker configuration, to make the app setup and start easier
 * [ ] locally stored results, to improve on a previous score and set a new record
-* [ ] a leaderboard, stored in a database, showing you your scores against other players
+* [x] a leaderboard, stored in a database, showing you your scores against other players
 * [ ] set prettier up on commit to normalize the coding style
 * [x] i18n support
 * [ ] animations and UX
