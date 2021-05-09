@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
 
 class Mongo {
   client: MongoClient;
@@ -15,6 +15,6 @@ class Mongo {
   }
 }
 
-const mongo = new Mongo("mongodb://mongodb:27017/masteos");
+const mongo = new Mongo('mongodb://mongodb:27017/masteos');
 
 export default mongo;

@@ -1,8 +1,8 @@
-import { Exercise } from "./exercise";
+import { Exercise } from './exercise';
 
 export enum GameStatus {
-  INGAME = "ingame",
-  HOME = "home",
+  INGAME = 'ingame',
+  HOME = 'home',
 }
 
 export interface GameProps {

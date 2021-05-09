@@ -16,7 +16,8 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["temp/*.ts", "exercises/"]

@@ -1,16 +1,16 @@
-import { Collection } from "mongodb";
-import { Leaderboard } from "../models/leaderboard";
-import mongo from "./mongodb.service";
+import { Collection } from 'mongodb';
+import { Leaderboard } from '../models/leaderboard';
+import mongo from './mongodb.service';
 
-export class LeaderboardService {
+export default class LeaderboardService {
   private db: Collection<Leaderboard>;
+
   constructor() {
-    this.db = mongo.client.db("masteos").collection("leaderboard");
+    this.db = mongo.client.db('masteos').collection('leaderboard');
   }
 
   async getLeaderboards(): Promise<Leaderboard[]> {
     const res = this.db.find().sort({ time: 1 });
-    console.log(await res.toArray());
     return res.toArray();
   }
 

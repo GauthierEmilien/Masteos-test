@@ -6,17 +6,17 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@material-ui/core";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { httpUrls } from "../../constants";
-import { Leaderboard } from "../../interfaces";
-import { toTime } from "../../utils/time.utils";
-import "./LeaderboardTable.scss";
+} from '@material-ui/core';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { httpUrls } from '../../constants';
+import { Leaderboard } from '../../interfaces';
+import { toTime } from '../../utils/time.utils';
+import './LeaderboardTable.scss';
 
 export function LeaderboardTable() {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation('common');
   const [leaderboards, setLeaderboards] = useState<Leaderboard[]>([]);
 
   useEffect(() => {
@@ -33,22 +33,27 @@ export function LeaderboardTable() {
         <TableHead>
           <TableRow>
             <TableCell style={{ fontWeight: 600 }}>
-              {t("leaderboard.rank")}
+              {t('leaderboard.rank')}
             </TableCell>
             <TableCell style={{ fontWeight: 600 }}>
-              {t("leaderboard.nickname")}
+              {t('leaderboard.nickname')}
             </TableCell>
             <TableCell style={{ fontWeight: 600 }}>
-              {t("leaderboard.time")}
+              {t('leaderboard.time')}
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {!leaderboards.length && (
-            <div className="no-score">{t("leaderboard.noScore")}</div>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell>
+                <div className="no-score">{t('leaderboard.noScore')}</div>
+              </TableCell>
+            </TableRow>
           )}
           {leaderboards.map((leaderboard, index) => (
-            <TableRow>
+            <TableRow key={`leaderboard-${index}`}>
               <TableCell>{`#${index + 1}`}</TableCell>
               <TableCell>{leaderboard.nickname}</TableCell>
               <TableCell>

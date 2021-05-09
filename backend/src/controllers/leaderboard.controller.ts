@@ -1,9 +1,9 @@
-import express from "express";
-import { LeaderboardService } from "../services/leaderboard.service";
+import express from 'express';
+import LeaderboardService from '../services/leaderboard.service';
 
 const router = express.Router();
 
-router.get("/", async (_, res) => {
+router.get('/', async (_, res) => {
   try {
     const service = new LeaderboardService();
     const leaderboards = await service.getLeaderboards();
@@ -13,7 +13,7 @@ router.get("/", async (_, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const service = new LeaderboardService();
     await service.createLeaderboard(req.body);

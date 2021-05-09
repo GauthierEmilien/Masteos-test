@@ -1,28 +1,28 @@
-import { Button, CircularProgress, Grid } from "@material-ui/core";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Ide } from "../Ide/Ide";
-import { Logs } from "../Logs/Logs";
-import { Clock } from "../Clock/Clock";
+import { Button, CircularProgress, Grid } from '@material-ui/core';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import moment from 'moment';
+import Rainbowfy from 'react-rainbowfy';
+import { Ide } from '../Ide/Ide';
+import { Logs } from '../Logs/Logs';
+import { Clock } from '../Clock/Clock';
 import {
   Exercise,
   GameProps,
   GameStatus,
   Log,
   LogStatus,
-} from "../../interfaces";
-import "./Game.scss";
-import { httpUrls } from "../../constants";
-import { WinDialog } from "../WinDialog/WinDialog";
-import moment from "moment";
-import Rainbowfy from "react-rainbowfy";
+} from '../../interfaces';
+import './Game.scss';
+import { httpUrls } from '../../constants';
+import { WinDialog } from '../WinDialog/WinDialog';
 
 export default function Game(props: GameProps) {
   const { exercises, setGameStatus } = props;
 
-  const { t } = useTranslation("common");
-  const [code, setCode] = useState("");
+  const { t } = useTranslation('common');
+  const [code, setCode] = useState('');
   const [exercise, setExercise] = useState<Exercise>();
   const [gameStep, setGameStep] = useState(0);
   const [stepIsValid, setStepIsValid] = useState(false);
@@ -47,7 +47,7 @@ export default function Game(props: GameProps) {
   useEffect(() => {
     const tick = () => {
       const t = moment();
-      setTime(t.diff(startTime, "seconds"));
+      setTime(t.diff(startTime, 'seconds'));
     };
     if (isCounting) {
       const timer = setInterval(tick, 1000);
@@ -59,29 +59,30 @@ export default function Game(props: GameProps) {
   const callAllTests = async () => {
     const newLogs = logs.slice();
     let validStep = 0;
+    // eslint-disable-next-line no-restricted-syntax
     for (const test of exercise!.tests) {
       const { data } = await axios.post<{ isValid: boolean; error?: string }>(
         httpUrls.testExercise,
-        { test }
+        { test },
       );
-      newLogs.push({ message: t("logs.testing", { call: test.call }) });
+      newLogs.push({ message: t('logs.testing', { call: test.call }) });
 
       if (data.isValid) {
         newLogs.push({
-          message: t("logs.goodAnswer", { result: test.result }),
+          message: t('logs.goodAnswer', { result: test.result }),
           status: LogStatus.SUCCESS,
         });
         validStep += 1;
       } else {
         newLogs.push({
-          message: t("logs.wrongAnswer", { error: data.error }),
+          message: t('logs.wrongAnswer', { error: data.error }),
           status: LogStatus.ERROR,
         });
         break;
       }
     }
     if (validStep === exercise!.tests.length) {
-      newLogs.push({ message: t("logs.success"), status: LogStatus.SUCCESS });
+      newLogs.push({ message: t('logs.success'), status: LogStatus.SUCCESS });
       setStepIsValid(true);
     }
     setLogs(newLogs);
@@ -93,7 +94,8 @@ export default function Game(props: GameProps) {
       setGameStep(gameStep + 1);
       setStepIsValid(false);
       return;
-    } else if (stepIsValid && gameStep === exercises.length - 1) {
+    }
+    if (stepIsValid && gameStep === exercises.length - 1) {
       setDialogIsOpen(true);
       return;
     }
@@ -126,7 +128,7 @@ export default function Game(props: GameProps) {
               className="title"
             >
               <Rainbowfy fontSize="30px" fontWeight="800">
-                {t("game.title")}
+                {t('game.title')}
               </Rainbowfy>
             </a>
           </Grid>
@@ -146,7 +148,7 @@ export default function Game(props: GameProps) {
               {loading ? (
                 <CircularProgress />
               ) : (
-                t(stepIsValid ? "game.next" : "game.test")
+                t(stepIsValid ? 'game.next' : 'game.test')
               )}
             </Button>
           </Grid>

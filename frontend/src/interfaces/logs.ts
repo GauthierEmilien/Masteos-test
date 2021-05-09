@@ -1,7 +1,7 @@
 export enum LogStatus {
-  ERROR = "error",
-  SUCCESS = "success",
-  INFO = "info",
+  ERROR = 'error',
+  SUCCESS = 'success',
+  INFO = 'info',
 }
 
 export interface Log {

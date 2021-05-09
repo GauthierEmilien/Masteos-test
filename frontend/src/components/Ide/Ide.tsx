@@ -1,6 +1,6 @@
-import React from "react";
-import { TextField } from "@material-ui/core";
-import "./Ide.scss";
+import React from 'react';
+import { TextField } from '@material-ui/core';
+import './Ide.scss';
 
 interface IdeProps {
   code: string;
